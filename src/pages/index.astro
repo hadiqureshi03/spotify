@@ -1,11 +1,339 @@
----
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify - Web Player: Music for everyone</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow: hidden;
+        }
+        
+        .spotify-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            height: 64px;
+            background-color: #000;
+            border-bottom: 1px solid #282828;
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+        }
+        
+        .navbar {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .spotify-logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1db954;
+        }
+        
+        .premium-btn {
+            background-color: #1db954;
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 500px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .main-content {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+        
+        .sidebar {
+            width: 240px;
+            background-color: #121212;
+            padding: 24px 8px;
+        }
+        
+        .nav-menu {
+            list-style: none;
+        }
+        
+        .nav-item {
+            display: block;
+            color: #b3b3b3;
+            text-decoration: none;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 4px;
+            transition: color 0.3s;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            color: #fff;
+        }
+        
+        .content-area {
+            flex: 1;
+            background-color: #121212;
+            padding: 24px;
+            overflow-y: auto;
+        }
+        
+        section {
+            margin-bottom: 32px;
+        }
+        
+        h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 16px;
+            color: #fff;
+        }
+        
+        .songs-grid, .artists-grid, .albums-grid, .radio-grid, .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 16px;
+        }
+        
+        .song-item, .artist-item, .album-item, .radio-item, .chart-item {
+            background-color: #181818;
+            padding: 16px;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .song-item:hover, .artist-item:hover, .album-item:hover, 
+        .radio-item:hover, .chart-item:hover {
+            background-color: #282828;
+        }
+        
+        /* Responsivt design */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 72px;
+            }
+            
+            .nav-item {
+                font-size: 12px;
+                padding: 8px;
+            }
+            
+            .songs-grid, .artists-grid, .albums-grid, 
+            .radio-grid, .charts-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 12px;
+            }
+            
+            h2 {
+                font-size: 20px;
+            }
+            
+            .content-area {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="spotify-container">
+        <header class="header">
+            <nav class="navbar">
+                <div class="nav-left">
+                    <div class="logo">
+                        <span class="spotify-logo">Spotify</span>
+                    </div>
+                </div>
+                <div class="nav-right">
+                    <button class="premium-btn">Premium</button>
+                </div>
+            </nav>
+        </header>
+        
+        <main class="main-content">
+            <aside class="sidebar">
+                <ul class="nav-menu">
+                    <li><a href="#" class="nav-item active">Home</a></li>
+                    <li><a href="#" class="nav-item">Search</a></li>
+                    <li><a href="#" class="nav-item">Your Library</a></li>
+                </ul>
+            </aside>
+            
+            <div class="content-area">
+                <section class="trending-section">
+                    <h2>Trending songs</h2>
+                    <div class="songs-grid">
+                        <div class="song-item">
+                            <img src="/images/subway.jpg" alt="The Subway" class="item-image">
+                            <span class="item-title">The Subway</span>
+														
+														
+                        </div>
+                        <div class="song-item">
+                            <img src="/images/napoleon.jpg" alt="Napoleon" class="item-image">
+                            <span class="item-title">Napoleon</span>
+                        </div>
+                        <div class="song-item">
+                            <img src="/images/golden.jpg" alt="Golden" class="item-image">
+                            <span class="item-title">Golden</span>
+                        </div>
+                        <div class="song-item">
+                            <img src="/images/lemonade.jpg" alt="LEMONADE" class="item-image">
+                            <span class="item-title">LEMONADE</span>
+                        </div>
+                        <div class="song-item">
+                            <img src="/images/the-sick.jpg" alt="The Sick" class="item-image">
+                            <span class="item-title">The Sick</span>
+                        </div>
+                        <div class="song-item">
+                            <img src="/images/devil-in-disguise.jpg" alt="Devil in Disguise" class="item-image">
+                            <span class="item-title">Devil in Disguise</span>
+                        </div>
+                        <div class="song-item">
+                            <img src="/images/tengo-celos.jpg" alt="TENGO CELOS" class="item-image">
+                            <span class="item-title">TENGO CELOS</span>
+                        </div>
+                        <div class="song-item">
+                            <img src="/images/so-far-so-fake.jpg" alt="So Far So Fake" class="item-image">
+                            <span class="item-title">So Far So Fake</span>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="artists-section">
+                    <h2>Popular artists</h2>
+                    <div class="artists-grid">
+                        <div class="artist-item">
+                            <img src="/images/kendrick-lamar.jpg" alt="Kendrick Lamar" class="item-image">
+                            <span class="item-title">Kendrick Lamar</span>
+                        </div>
+                        <div class="artist-item">
+                            <img src="/images/drake.jpg" alt="Drake" class="item-image">
+                            <span class="item-title">Drake</span>
+                        </div>
+                        <div class="artist-item">
+                            <img src="/images/the-weeknd.jpg" alt="The Weeknd" class="item-image">
+                            <span class="item-title">The Weeknd</span>
+                        </div>
+                        <div class="artist-item">
+                            <img src="/images/morgan-wallen.jpg" alt="Morgan Wallen" class="item-image">
+                            <span class="item-title">Morgan Wallen</span>
+                        </div>
+                        <div class="artist-item">
+                            <img src="/images/post-malone.jpg" alt="Post Malone" class="item-image">
+                            <span class="item-title">Post Malone</span>
+                        </div>
+                        <div class="artist-item">
+                            <img src="/images/rihanna.jpg" alt="Rihanna" class="item-image">
+                            <span class="item-title">Rihanna</span>
+                        </div>
+                        <div class="artist-item">
+                            <img src="/images/lady-gaga.jpg" alt="Lady Gaga" class="item-image">
+                            <span class="item-title">Lady Gaga</span>
+                        </div>
+                        <div class="artist-item">
+                            <img src="/images/billie-eilish.jpg" alt="Billie Eilish" class="item-image">
+                            <span class="item-title">Billie Eilish</span>
+                        </div>
+                        <div class="artist-item">
+                            <img src="/images/taylor-swift.jpg" alt="Taylor Swift" class="item-image">
+                            <span class="item-title">Taylor Swift</span>
+                        </div>
+                        <div class="artist-item">
+                            <img src="/images/kanye-west.jpg" alt="Kanye West" class="item-image">
+                            <span class="item-title">Kanye West</span>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="albums-section">
+                    <h2>Popular albums and singles</h2>
+                    <div class="albums-grid">
+                        <div class="album-item">
+                            <img src="/images/problem.jpg" alt="I'm The Problem" class="item-image">
+                            <span class="item-title">I'm The Problem</span>
+                        </div>
+                        <div class="album-item">
+                            <img src="/images/debi-tirar.jpg" alt="DeBÍ TiRAR MáS FOToS" class="item-image">
+                            <span class="item-title">DeBÍ TiRAR MáS FOToS</span>
+                        </div>
+                        <div class="album-item">
+                            <img src="/images/hit-me-hard.jpg" alt="HIT ME HARD AND SOFT" class="item-image">
+                            <span class="item-title">HIT ME HARD AND SOFT</span>
+                        </div>
+                        <div class="album-item">
+                            <img src="/images/gnx.jpg" alt="GNX" class="item-image">
+                            <span class="item-title">GNX</span>
+                        </div>
+                        <div class="album-item">
+                            <img src="/images/chromakopia.jpg" alt="CHROMAKOPIA" class="item-image">
+                            <span class="item-title">CHROMAKOPIA</span>
+                        </div>
+                        <div class="album-item">
+                            <img src="/images/short-sweet.jpg" alt="Short n' Sweet" class="item-image">
+                            <span class="item-title">Short n' Sweet</span>
+                        </div>
+                        <div class="album-item">
+                            <img src="/images/hamilton.jpg" alt="Hamilton" class="item-image">
+                            <span class="item-title">Hamilton (Original Broadway Cast Recording)</span>
+                        </div>
+                        <div class="album-item">
+                            <img src="/images/reputation.jpg" alt="reputation" class="item-image">
+                            <span class="item-title">reputation</span>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="radio-section">
+                    <h2>Popular radio</h2>
+                    <div class="radio-grid">
+                        <div class="radio-item">Morgan Wallen Radio</div>
+                        <div class="radio-item">Zach Bryan Radio</div>
+                        <div class="radio-item">Drake Radio</div>
+                        <div class="radio-item">SZA Radio</div>
+                        <div class="radio-item">Post Malone Radio</div>
+                        <div class="radio-item">Taylor Swift Radio</div>
+                        <div class="radio-item">Kendrick Lamar Radio</div>
+                        <div class="radio-item">Bad Bunny Radio</div>
+                    </div>
+                </section>
+                
+                <section class="charts-section">
+                    <h2>Featured Charts</h2>
+                    <div class="charts-grid">
+                        <div class="chart-item">Top Songs - Global</div>
+                        <div class="chart-item">Top Songs - USA</div>
+                        <div class="chart-item">Viral 50 - Global</div>
+                        <div class="chart-item">Viral 50 - USA</div>
+                        <div class="chart-item">Throwback Thursday</div>
+                        <div class="chart-item">All Out 2010s</div>
+                        <div class="chart-item">All Out 90s</div>
+                        <div class="chart-item">All Out 80s</div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
----
-
-<Layout>
-	<Welcome />
-</Layout>
